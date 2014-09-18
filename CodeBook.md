@@ -1,19 +1,21 @@
 ---
 output: pdf_document
 ---
-#The following describes
+#Code Book of tidydatatable.txt and tidydatatable.xlsx
 
-The raw data contained in this project consists of the following files:
+This code book that describes the variables, the data, and any transformations or work that have been performed
+to clean up the data.  The output of the project can be found in the tidydatatable.txt and tidydatatable.xlsx files 
+within the github repository.  
 
-        * subject_test.txt
-        * features.txt
-        * X_test.txt
-        * y_test.txt
-        * subject_train.txt
-        * X_train.txt
-        * y_train.txt
+The raw data in this file in contained in the following 8 files:
+
+
+
+
+
+
         
-  
+
 
 
 

@@ -1,3 +1,5 @@
+
+##STEP 1 - RETRIEVE RAW DATA
 #set working directory
 setwd("/users/juancbujeda/Dropbox/Education/coursera - getting & cleaning data/course project")
 
@@ -14,13 +16,16 @@ subject_test <- read.csv("./test/subject_test.txt")     #subj doing activity; 73
 x_test_raw <- read.csv("./test/X_test.txt")             #train dataset; 7351 obs; 
 y_test_raw <- read.csv("./test/Y_test.txt")             #train labels; 7351 obs; 1 var; 1-6 
 
-#get the variable names
+#get the variable names from the features file 
 features <- read.table("./features.txt")                #variable names; 561 total
 varnames <- as.character(features[1:nrow(features),2])
 
-#tidy up the training and test datasets; assign variable names
+##STEP 2 - TRANSFORM RAW DATA
+#transform the raw data into numbers and save them as dataframes
 x_train_df <- getdf(x_train_raw,width=15,rows=7351,columns=561)
 x_test_df <- getdf(x_test_raw,width=15,rows=2946,columns=561)
+
+#assign variable names to the dataframes
 names(x_train_df) <- varnames
 names(x_test_df) <- varnames
 
@@ -41,6 +46,8 @@ subject_df <- rbind(subject_train,subject_test)
 dataset_df <- rbind(x_train_df,x_test_df)
 activity_df <- rbind(y_train_df,y_test_df)
 
+##STEP 3 - KEEP CHOSEN VARIABLES
+
 #extract the mean and stdev of each variable in the dataset
 dataset_meanstd_df <- dataset_df[,extract_vector(dataset_df)]
 
@@ -58,8 +65,8 @@ names(table) <- goodnames(table)
 finaltable <- varmeans(table)
 
 #write to textfile
-write.table(finaltable,"./gettingdata/finaltable.txt",row.name=FALSE)
-write.xlsx(finaltable,"./gettingdata/finaltable.xlsx",row.name=FALSE)
+write.table(finaltable,"./gettingdata/tidydatatable.txt",row.name=FALSE)
+write.xlsx(finaltable,"./gettingdata/tidydatatable.xlsx",row.name=FALSE)
 
 ##FUNCTIONS
 #this function converts the factors in the 1st col of the df to numeric; returns a dataframe
