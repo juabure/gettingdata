@@ -58,7 +58,8 @@ names(table) <- goodnames(table)
 finaltable <- varmeans(table)
 
 #write to textfile
-write.table(finaltable,"./finaltable.txt",row.name=FALSE)
+write.table(finaltable,"./gettingdata/finaltable.txt",row.name=FALSE)
+write.xlsx(finaltable,"./gettingdata/finaltable.xlsx",row.name=FALSE)
 
 ##FUNCTIONS
 #this function converts the factors in the 1st col of the df to numeric; returns a dataframe
