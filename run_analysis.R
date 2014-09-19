@@ -21,6 +21,8 @@ features <- read.table("./features.txt")                #variable names; 561 tot
 varnames <- as.character(features[1:nrow(features),2])
 
 ##STEP 2 - TRANSFORM RAW DATA
+
+#step 2.1
 #transform the raw data into numbers and save them as dataframes
 x_train_df <- getdf(x_train_raw,width=15,rows=7351,columns=561)
 x_test_df <- getdf(x_test_raw,width=15,rows=2946,columns=561)
@@ -29,25 +31,27 @@ x_test_df <- getdf(x_test_raw,width=15,rows=2946,columns=561)
 names(x_train_df) <- varnames
 names(x_test_df) <- varnames
 
+#step 2.2
 #give meaningful names to the activity labels
 names(y_train_raw) <- "Activity Label"
 names(y_test_raw) <- "Activity Label"
-y_train_df <- y_train_raw                                     #activity labels; 7351 obs
-y_train_df <- subnames(y_train_df) 
-y_test_df <- y_test_raw
-y_test_df <- subnames(y_test_df)
+y_train_df <- subnames(y_train_raw) 
+y_test_df <- subnames(y_test_raw)
 
+#step 2.3
 #rowbind the subject_test and subject_train files
 names(subject_train) <- "Subject Code"
 names(subject_test) <- "Subject Code"
 subject_df <- rbind(subject_train,subject_test)
 
+#step 2.4
 #merge the x_test and x_train datasets and the y_train and y_test datasets and then the x and y
 dataset_df <- rbind(x_train_df,x_test_df)
 activity_df <- rbind(y_train_df,y_test_df)
 
 ##STEP 3 - KEEP CHOSEN VARIABLES
 
+#step 3.1
 #extract the mean and stdev of each variable in the dataset
 dataset_meanstd_df <- dataset_df[,extract_vector(dataset_df)]
 
@@ -58,12 +62,15 @@ table <- cbind(subject_df,activity_df,dataset_meanstd_df)
 table <- table[order(table[,1],table[,2]),]
 row.names(table) <- seq(nrow(table))
 
+#step 3.2
 #give the variables meaningful names
 names(table) <- goodnames(table)
 
+#step 3.3
 #consolidate data 
 finaltable <- varmeans(table)
 
+#step 3.4
 #write to textfile
 write.table(finaltable,"./gettingdata/tidydatatable.txt",row.name=FALSE)
 write.xlsx(finaltable,"./gettingdata/tidydatatable.xlsx",row.name=FALSE)
